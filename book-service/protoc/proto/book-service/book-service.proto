@@ -1,0 +1,33 @@
+syntax ="proto3";
+
+package bookService;
+
+option go_package = "pavel.book-service.v1;bookServicev1";
+
+
+service Book{
+  rpc AddBook(AddBookRequest) returns (AddBookResponse);
+  rpc GetBook(GetBooksRequest) returns (GetBooksResponse);
+}
+
+message AddBookRequest {
+  string author = 1;
+  string name = 2;
+}
+message AddBookResponse {
+  int64 id = 1;
+}
+message GetBooksRequest{}
+
+message GetBooksResponse{
+  repeated BookData books = 1;
+}
+
+message BookData{
+  string author = 1;
+  string name = 2;
+}
+
+
+
+

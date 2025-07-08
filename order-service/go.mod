@@ -1,0 +1,1 @@
+module github.com/PavelParvadov/grpc_order_book_service/order-service

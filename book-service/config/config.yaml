@@ -1,0 +1,9 @@
+grpc:
+  port: 5555
+
+db:
+  port: 5432
+  db_name: "grpc_order_book_service"
+  host: "localhost"
+  username: "postgres"
+  password: "pavel"
