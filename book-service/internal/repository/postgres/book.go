@@ -20,7 +20,7 @@ func (s *Storage) GetBooks(ctx context.Context) ([]model.Book, error) {
 
 }
 
-func (s *Storage) AddBook(ctx context.Context, name, author string) (int64, error) {
+func (s *Storage) Save(ctx context.Context, name, author string) (int64, error) {
 	tx, err := s.DbPool.Begin(ctx)
 	if err != nil {
 		return 0, err

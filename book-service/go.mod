@@ -4,7 +4,6 @@ go 1.24.4
 
 require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
-	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
 	github.com/jackc/pgx/v5 v5.7.5
 	go.uber.org/zap v1.27.0
 	google.golang.org/grpc v1.73.0
