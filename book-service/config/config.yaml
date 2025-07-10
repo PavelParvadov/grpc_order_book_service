@@ -3,7 +3,7 @@ grpc:
 
 db:
   port: 5432
-  db_name: "grpc_order_book_service"
+  db_name: "grpc_book_service"
   host: "localhost"
   username: "postgres"
-  password: "pavel"
+  password: "postgres"

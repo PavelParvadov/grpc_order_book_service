@@ -1,0 +1,18 @@
+version: "3"
+
+tasks:
+  migrate:
+    desc: "migrations applying"
+    cmd: "go run ./cmd/migrator --migrations-path={{.MIGRATIONS_PATH}} --migrations-table={{.MG_TABLE}} --db-url={{.DB_URL}}"
+    vars:
+      MIGRATIONS_PATH: "./migrations"
+      MG_TABLE: "migrations"
+      DB_URL: "postgres:postgres@localhost:5432/grpc_book_service"
+  run:
+    desc: "run application"
+    cmds:
+      - "go run ./cmd/book-service/main.go --config-path=./config/config.yaml"
+
+
+
+

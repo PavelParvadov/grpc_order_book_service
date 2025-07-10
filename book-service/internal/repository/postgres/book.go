@@ -3,19 +3,26 @@ package postgres
 import (
 	"context"
 	"github.com/PavelParvadov/grpc_order_book_service/book-service/internal/domain/model"
+	"github.com/jackc/pgx/v5"
 )
 
 func (s *Storage) GetBooks(ctx context.Context) ([]model.Book, error) {
+
 	query, err := s.DbPool.Query(ctx, "SELECT * FROM books")
 	if err != nil {
 		return nil, ErrBookNotFound
 	}
-	var books []model.Book
 
-	err = query.Scan(&books)
-	if err != nil {
-		return nil, err
-	}
+	books, err := pgx.CollectRows(query, func(row pgx.CollectableRow) (model.Book, error) {
+		var book model.Book
+		err = row.Scan(&book)
+		if err != nil {
+			return model.Book{}, err
+		}
+		return book, nil
+
+	})
+
 	return books, nil
 
 }
