@@ -15,7 +15,7 @@ type BookGrpcApp struct {
 	Port int
 }
 
-func NewApp(log *zap.Logger, port int, bookService *service.BookService) *BookGrpcApp {
+func NewGRPCApp(log *zap.Logger, port int, bookService *service.BookService) *BookGrpcApp {
 	server := grpc.NewServer()
 	GrpcServer.RegisterGRPCServer(server, bookService)
 	return &BookGrpcApp{

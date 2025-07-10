@@ -15,8 +15,12 @@ type App struct {
 func NewApp(log *zap.Logger, cfg config.Config) *App {
 	storage := postgres.NewStorage(&cfg)
 	BookService := service.NewBookService(log, storage, storage)
-	GrpcServer := grpcapp.NewApp(log, cfg.GRPCConf.Port, BookService)
+	GrpcServer := grpcapp.NewGRPCApp(log, cfg.GRPCConf.Port, BookService)
 	return &App{
 		BookGrpc: GrpcServer,
 	}
+}
+
+func (a *App) Stop() {
+	a.BookGrpc.Stop()
 }

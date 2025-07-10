@@ -264,10 +264,10 @@ const file_book_service_book_service_proto_rawDesc = "" +
 	"\x05books\x18\x01 \x03(\v2\x15.bookService.BookDataR\x05books\"6\n" +
 	"\bBookData\x12\x16\n" +
 	"\x06author\x18\x01 \x01(\tR\x06author\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name2\x94\x01\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name2\x95\x01\n" +
 	"\x04Book\x12D\n" +
-	"\aAddBook\x12\x1b.bookService.AddBookRequest\x1a\x1c.bookService.AddBookResponse\x12F\n" +
-	"\aGetBook\x12\x1c.bookService.GetBooksRequest\x1a\x1d.bookService.GetBooksResponseB%Z#pavel.book-service.v1;bookServicev1b\x06proto3"
+	"\aAddBook\x12\x1b.bookService.AddBookRequest\x1a\x1c.bookService.AddBookResponse\x12G\n" +
+	"\bGetBooks\x12\x1c.bookService.GetBooksRequest\x1a\x1d.bookService.GetBooksResponseB%Z#pavel.book-service.v1;bookServicev1b\x06proto3"
 
 var (
 	file_book_service_book_service_proto_rawDescOnce sync.Once
@@ -292,9 +292,9 @@ var file_book_service_book_service_proto_goTypes = []any{
 var file_book_service_book_service_proto_depIdxs = []int32{
 	4, // 0: bookService.GetBooksResponse.books:type_name -> bookService.BookData
 	0, // 1: bookService.Book.AddBook:input_type -> bookService.AddBookRequest
-	2, // 2: bookService.Book.GetBook:input_type -> bookService.GetBooksRequest
+	2, // 2: bookService.Book.GetBooks:input_type -> bookService.GetBooksRequest
 	1, // 3: bookService.Book.AddBook:output_type -> bookService.AddBookResponse
-	3, // 4: bookService.Book.GetBook:output_type -> bookService.GetBooksResponse
+	3, // 4: bookService.Book.GetBooks:output_type -> bookService.GetBooksResponse
 	3, // [3:5] is the sub-list for method output_type
 	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

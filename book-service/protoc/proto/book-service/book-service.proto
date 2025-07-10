@@ -7,7 +7,7 @@ option go_package = "pavel.book-service.v1;bookServicev1";
 
 service Book{
   rpc AddBook(AddBookRequest) returns (AddBookResponse);
-  rpc GetBook(GetBooksRequest) returns (GetBooksResponse);
+  rpc GetBooks(GetBooksRequest) returns (GetBooksResponse);
 }
 
 message AddBookRequest {
