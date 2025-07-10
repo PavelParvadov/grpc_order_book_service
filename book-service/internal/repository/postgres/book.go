@@ -15,13 +15,16 @@ func (s *Storage) GetBooks(ctx context.Context) ([]model.Book, error) {
 
 	books, err := pgx.CollectRows(query, func(row pgx.CollectableRow) (model.Book, error) {
 		var book model.Book
-		err = row.Scan(&book)
+		err = row.Scan(&book.Id, &book.Name, &book.Author)
 		if err != nil {
 			return model.Book{}, err
 		}
 		return book, nil
 
 	})
+	if err != nil {
+		return nil, err
+	}
 
 	return books, nil
 
