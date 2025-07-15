@@ -15,6 +15,11 @@ func (s *OrderService) GetAllOrders(ctx context.Context) ([]models.Order, error)
 }
 
 func (s *OrderService) AddNewOrder(ctx context.Context, order models.Order) (string, error) {
+	_, err := s.BookClient.GetBookByID(ctx, order.BookId)
+	if err != nil {
+		s.Log.Warn("book not found", zap.Error(err))
+		return "", ErrBookNotFound
+	}
 	id, err := s.Save(ctx, order)
 	if err != nil {
 		s.Log.Warn("cannot save order", zap.Error(err))

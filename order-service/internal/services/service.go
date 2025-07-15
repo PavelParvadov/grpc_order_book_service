@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	book_service "github.com/PavelParvadov/grpc_order_book_service/order-service/clients/book-service"
 	"github.com/PavelParvadov/grpc_order_book_service/order-service/internal/domain/models"
 	"go.uber.org/zap"
 )
@@ -10,6 +11,7 @@ type OrderService struct {
 	Log *zap.Logger
 	OrderSaver
 	OrderProvider
+	BookClient *book_service.BookClient
 }
 
 type OrderSaver interface {
