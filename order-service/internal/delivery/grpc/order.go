@@ -30,10 +30,11 @@ func (s *grpcServer) GetOrders(ctx context.Context, req *orderServicev1.GetOrder
 	pbBooks := make([]*orderServicev1.OrderData, len(orders))
 	for _, order := range orders {
 		pbBook := &orderServicev1.OrderData{
-			BookId: order.BookId,
-			Status: toOrderStatusEnum(order.Status),
-			Price:  order.Price,
-			Place:  order.Place,
+			OrderId: order.Id.Hex(),
+			BookId:  order.BookId,
+			Status:  toOrderStatusEnum(order.Status),
+			Price:   order.Price,
+			Place:   order.Place,
 		}
 		pbBooks = append(pbBooks, pbBook)
 	}

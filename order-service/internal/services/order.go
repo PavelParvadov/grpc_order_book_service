@@ -25,5 +25,6 @@ func (s *OrderService) AddNewOrder(ctx context.Context, order models.Order) (str
 		s.Log.Warn("cannot save order", zap.Error(err))
 		return "", err
 	}
+	s.Log.Info("new order", zap.String("id", id))
 	return id, nil
 }

@@ -4,3 +4,6 @@ tasks:
   gen-proto:
     desc: "helps generate go-proto files"
     cmd: "protoc -I protoc/proto protoc/proto/order-service/order-service.proto --go_out=./protoc/gen/go --go_opt=paths=source_relative --go-grpc_out=./protoc/gen/go --go-grpc_opt=paths=source_relative"
+  run:
+    desc: "runs application"
+    cmd: "go run ./cmd/order-service/main.go --config-path=./config/config.yaml"

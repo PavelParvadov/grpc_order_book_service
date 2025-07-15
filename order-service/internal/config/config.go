@@ -8,16 +8,21 @@ import (
 )
 
 type GrpcConfig struct {
-	Port string `yaml:"port" env:"GRPCPORT"`
+	Port int `yaml:"port" env:"GRPCPORT"`
 }
 type DBConfig struct {
 	Host string `yaml:"host" env:"DBHOST"`
 	Port string `yaml:"port" env:"DBPORT"`
 }
+type BookService struct {
+	Host string `yaml:"host" env:"BOOK_SERVICE_HOST"`
+	Port string `yaml:"port" env:"BOOK_SERVICE_PORT"`
+}
 
 type Config struct {
-	GrpcConfig GrpcConfig `yaml:"grpc"`
-	DBConfig   DBConfig   `yaml:"db"`
+	GrpcConfig  GrpcConfig  `yaml:"grpc"`
+	DBConfig    DBConfig    `yaml:"db"`
+	BookService BookService `yaml:"bookService"`
 }
 
 var instance *Config

@@ -2,9 +2,8 @@ package mongodb
 
 import (
 	"context"
+	"fmt"
 	"github.com/PavelParvadov/grpc_order_book_service/order-service/internal/domain/models"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
@@ -36,7 +35,10 @@ func (s *Storage) Save(ctx context.Context, order models.Order) (string, error) 
 	if err != nil {
 		return "", err
 	}
-	id := one.InsertedID.(primitive.ObjectID)
+	id, ok := one.InsertedID.(bson.ObjectID)
+	if !ok {
+		return "", fmt.Errorf("unexpected type for InsertedID: %T", one.InsertedID)
+	}
 	return id.Hex(), nil
 
 }

@@ -22,6 +22,6 @@ type OrderProvider interface {
 	GetOrders(ctx context.Context) ([]models.Order, error)
 }
 
-func NewOrderService(log *zap.Logger, os OrderSaver, op OrderProvider) *OrderService {
-	return &OrderService{Log: log, OrderSaver: os, OrderProvider: op}
+func NewOrderService(log *zap.Logger, os OrderSaver, op OrderProvider, bc *book_service.BookClient) *OrderService {
+	return &OrderService{Log: log, OrderSaver: os, OrderProvider: op, BookClient: bc}
 }
