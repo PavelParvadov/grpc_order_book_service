@@ -33,3 +33,16 @@ func (b *BookService) AddBook(ctx context.Context, name, author string) (int64, 
 	}
 	return id, nil
 }
+
+func (b *BookService) GetBookByID(ctx context.Context, id int64) (*model.Book, error) {
+	book, err := b.BookProvider.GetBookById(ctx, id)
+	if err != nil {
+		if errors.Is(err, postgres.ErrBookNotFound) {
+			b.Log.Error("Book not found", zap.Error(err))
+			return nil, ErrBookNotFound
+		}
+		b.Log.Error("GetBookByID error", zap.Error(err))
+		return nil, err
+	}
+	return book, nil
+}

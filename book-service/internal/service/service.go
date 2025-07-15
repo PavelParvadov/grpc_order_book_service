@@ -25,4 +25,5 @@ type BookSaver interface {
 }
 type BookProvider interface {
 	GetBooks(ctx context.Context) ([]model.Book, error)
+	GetBookById(ctx context.Context, id int64) (*model.Book, error)
 }

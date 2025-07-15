@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"context"
+	"errors"
 	"github.com/PavelParvadov/grpc_order_book_service/book-service/internal/domain/model"
 	"github.com/jackc/pgx/v5"
 )
@@ -42,4 +43,17 @@ func (s *Storage) Save(ctx context.Context, name, author string) (int64, error) 
 	}
 
 	return BookId, tx.Commit(ctx)
+}
+
+func (s *Storage) GetBookById(ctx context.Context, id int64) (*model.Book, error) {
+	row := s.DbPool.QueryRow(ctx, "select * from books where id = $1", id)
+	var book model.Book
+	err := row.Scan(&book.Id, &book.Name, &book.Author)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, ErrBookNotFound
+		}
+		return nil, err
+	}
+	return &book, nil
 }

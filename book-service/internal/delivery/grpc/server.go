@@ -12,6 +12,7 @@ import (
 type BookService interface {
 	GetBooks(ctx context.Context) ([]model.Book, error)
 	AddBook(ctx context.Context, name, author string) (int64, error)
+	GetBookById(ctx context.Context, id int64) (*model.Book, error)
 }
 
 type RPCServer struct {
@@ -41,6 +42,19 @@ func (s *RPCServer) GetBooks(ctx context.Context, req *bookServicev1.GetBooksReq
 		Books: pbBooks,
 	}, nil
 
+}
+func (s *RPCServer) GetBookById(ctx context.Context, req *bookServicev1.GetBookByIdRequest) (*bookServicev1.GetBookByIdResponse, error) {
+	book, err := s.bookService.GetBookById(ctx, req.BookId)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "error getting book by id: %v", err)
+	}
+	pbbook := &bookServicev1.BookData{
+		Name:   book.Name,
+		Author: book.Author,
+	}
+	return &bookServicev1.GetBookByIdResponse{
+		Book: pbbook,
+	}, nil
 }
 
 func (s *RPCServer) AddBook(ctx context.Context, req *bookServicev1.AddBookRequest) (*bookServicev1.AddBookResponse, error) {
