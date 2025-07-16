@@ -48,7 +48,7 @@ func FetchConfigPath() string {
 	flag.StringVar(&res, "config-path", "", "load config from path")
 	flag.Parse()
 	if res == "" {
-		os.Getenv("CONFIG_PATH")
+		res = os.Getenv("CONFIG_PATH")
 	}
 	return res
 }

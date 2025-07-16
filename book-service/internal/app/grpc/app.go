@@ -6,6 +6,7 @@ import (
 	"github.com/PavelParvadov/grpc_order_book_service/book-service/internal/service"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health/grpc_health_v1"
 	"net"
 )
 
@@ -18,6 +19,8 @@ type BookGrpcApp struct {
 func NewGRPCApp(log *zap.Logger, port int, bookService *service.BookService) *BookGrpcApp {
 	server := grpc.NewServer()
 	GrpcServer.RegisterGRPCServer(server, bookService)
+	healthServ := GrpcServer.NewHealthServer()
+	grpc_health_v1.RegisterHealthServer(server, healthServ)
 	return &BookGrpcApp{
 		Log:  log,
 		Grpc: server,
