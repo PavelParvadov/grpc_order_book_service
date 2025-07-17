@@ -45,7 +45,7 @@ func LoadConfigByPath(path string) *Config {
 	if err != nil {
 		panic(err)
 	}
-	err = cleanenv.ReadEnv(cfg)
+	err = cleanenv.ReadEnv(&cfg)
 	if err != nil {
 		panic(err)
 	}
