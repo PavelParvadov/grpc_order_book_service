@@ -27,6 +27,10 @@ func (h *Handler) AddBook(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	if book.Name == "" || book.Author == "" {
+		http.Error(w, "name and author are required", http.StatusBadRequest)
+		return
+	}
 	output, err := h.BookHandler.AddBook(ctx, book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

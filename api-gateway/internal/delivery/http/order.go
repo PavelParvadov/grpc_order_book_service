@@ -25,11 +25,18 @@ func (h *Handler) AddOrder(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if order.Place == "" || order.Status == "" || order.Price == 0 || order.BookId == 0 {
+		http.Error(w, "invalid credentials", http.StatusBadRequest)
+		return
 	}
 
 	output, err := h.OrderBookHandler.AddOrder(ctx, order)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(output)
