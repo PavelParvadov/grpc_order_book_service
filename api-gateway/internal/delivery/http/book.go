@@ -11,6 +11,7 @@ func (h *Handler) GetBooks(w http.ResponseWriter, r *http.Request) {
 	books, err := h.BookHandler.GetBooks(ctx)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(books)
@@ -29,6 +30,7 @@ func (h *Handler) AddBook(w http.ResponseWriter, r *http.Request) {
 	output, err := h.BookHandler.AddBook(ctx, book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(output)
