@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: book_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_DB_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  book-service:
+    build: ./book-service
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
+      POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB_USERNAME: ${POSTGRES_DB_USERNAME}
+      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
+      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
+      POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
+      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+    ports:
+      - "${BOOK_SERVICE_PORT}:${BOOK_SERVICE_PORT}"
+
+volumes:
+  pgdata:

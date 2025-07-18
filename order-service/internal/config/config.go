@@ -8,11 +8,11 @@ import (
 )
 
 type GrpcConfig struct {
-	Port int `yaml:"port" env:"GRPCPORT"`
+	Port int `yaml:"port" env:"ORDER_GRPC_PORT"`
 }
 type DBConfig struct {
-	Host string `yaml:"host" env:"DBHOST"`
-	Port string `yaml:"port" env:"DBPORT"`
+	Host string `yaml:"host" env:"MONGO_DB_HOST"`
+	Port string `yaml:"port" env:"MONGO_DB_PORT"`
 }
 type BookService struct {
 	Host string `yaml:"host" env:"BOOK_SERVICE_HOST"`
