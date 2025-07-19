@@ -1,13 +1,19 @@
-version: '3.8'
+
 
 services:
   postgres:
     image: postgres:latest
     container_name: book_db
+    restart: on-failure
     environment:
       POSTGRES_DB: ${POSTGRES_DB_NAME}
       POSTGRES_USER: ${POSTGRES_DB_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
     ports:
       - "5432:5432"
     volumes:
@@ -15,8 +21,10 @@ services:
 
   book-service:
     build: ./book-service
+    command: sh -c "./migrator --migrations-path=./migrations --db-url=${POSTGRES_DB_USERNAME}:${POSTGRES_DB_PASSWORD}@${POSTGRES_DB_HOST}:${POSTGRES_DB_PORT}/${POSTGRES_DB_NAME} && ./book-service"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
       POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}

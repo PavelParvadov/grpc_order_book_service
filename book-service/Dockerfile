@@ -12,7 +12,9 @@ FROM alpine:latest
 WORKDIR /app
 
 COPY --from=builder /app/book-service .
+COPY --from=builder /app/migrator .
 COPY config/config.yaml ./config.yaml
+COPY migrations ./migrations
 
 EXPOSE 5555
 
