@@ -1,5 +1,3 @@
-
-
 services:
   postgres:
     image: postgres:latest
@@ -14,8 +12,7 @@ services:
       interval: 10s
       retries: 5
       timeout: 10s
-    ports:
-      - "5432:5432"
+
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -33,8 +30,65 @@ services:
       BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
       POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+
+
+  order-service:
+    container_name: order-service
+    build: ./order-service
+    depends_on:
+      order-db:
+        condition: service_healthy
+      book-service:
+        condition: service_started
+    environment:
+      ORDER_GRPC_PORT: ${ORDER_GRPC_PORT}
+      ORDER_GRPC_HOST: ${ORDER_GRPC_HOST}
+      MONGO_DB_HOST: ${MONGO_DB_HOST}
+      MONGO_DB_PORT: ${MONGO_DB_PORT}
+      MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
+      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
+      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
+      CONFIG_PATH: ${CONFIG_PATH}
+
+
+  order-db:
+    container_name: order-db
+    restart: on-failure
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      retries: 5
+      timeout: 10s
+      interval: 10s
+    volumes:
+      - order-db-data:/data/db
+  api-gateway:
+    container_name: api-gateway
+    build: ./api-gateway
+    depends_on:
+      - book-service
+      - order-service
     ports:
-      - "${BOOK_SERVICE_PORT}:${BOOK_SERVICE_PORT}"
+      - "8080:8080"
+
+    environment:
+      ORDER_GRPC_PORT: ${ORDER_GRPC_PORT}
+      ORDER_GRPC_HOST: ${ORDER_GRPC_HOST}
+      MONGO_DB_HOST: ${MONGO_DB_HOST}
+      MONGO_DB_PORT: ${MONGO_DB_PORT}
+      MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
+      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
+      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
+      POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
+      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+
+      CONFIG_PATH: ${CONFIG_PATH}
 
 volumes:
   pgdata:
+  order-db-data:

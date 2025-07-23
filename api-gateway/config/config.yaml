@@ -1,9 +1,10 @@
 httpServer:
   port: 8080
-bookService:
-  host: "localhost"
-  port: 5555
-orderService:
-  host: "localhost"
-  port: 5554
 
+bookService:
+  host: "book-service"
+  port: 5555
+
+orderService:
+  host: "order-service"
+  port: 5554

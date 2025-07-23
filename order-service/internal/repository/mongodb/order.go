@@ -15,10 +15,11 @@ func (s *Storage) Collection() *mongo.Collection {
 func (s *Storage) GetOrders(ctx context.Context) ([]models.Order, error) {
 	var orders []models.Order
 	find, err := s.Collection().Find(ctx, bson.M{})
-	defer find.Close(ctx)
+
 	if err != nil {
 		return []models.Order{}, err
 	}
+	defer find.Close(ctx)
 	for find.Next(ctx) {
 		var order models.Order
 		err := find.Decode(&order)

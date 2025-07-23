@@ -7,17 +7,13 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv"
 	"go.uber.org/zap"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	_ = godotenv.Load()
 
 	cfg := config.GetInstance()
 

@@ -1,9 +1,10 @@
 grpc:
-  port: 5555
+  port: 5554
 
 db:
-  port: 5432
-  db_name: "book_db"
-  host: "postgres"
-  username: "postgres"
-  password: "postgres"
+  host: order-db
+  port: 27017
+
+bookService:
+  host: book-service
+  port: 5555

@@ -11,8 +11,10 @@ type GrpcConfig struct {
 	Port int `yaml:"port" env:"ORDER_GRPC_PORT"`
 }
 type DBConfig struct {
-	Host string `yaml:"host" env:"MONGO_DB_HOST"`
-	Port string `yaml:"port" env:"MONGO_DB_PORT"`
+	Host     string `yaml:"host" env:"MONGO_DB_HOST"`
+	Port     string `yaml:"port" env:"MONGO_DB_PORT"`
+	Username string `yaml:"username" env:"MONGO_DB_USERNAME"`
+	Password string `yaml:"password" env:"MONGO_DB_PASSWORD"`
 }
 type BookService struct {
 	Host string `yaml:"host" env:"BOOK_SERVICE_HOST"`

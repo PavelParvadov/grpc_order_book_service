@@ -14,8 +14,14 @@ type Storage struct {
 
 func NewStorage(cfg *config.Config) *Storage {
 	connStr := fmt.Sprintf("mongodb://%s:%s/", cfg.DBConfig.Host, cfg.DBConfig.Port)
-	opt := options.Client().ApplyURI(connStr)
-	client, err := mongo.Connect(opt)
+	opts := options.Client().ApplyURI(connStr)
+	if cfg.DBConfig.Username != "" && cfg.DBConfig.Password != "" {
+		opts = opts.SetAuth(options.Credential{
+			Username: cfg.DBConfig.Username,
+			Password: cfg.DBConfig.Password,
+		})
+	}
+	client, err := mongo.Connect(opts)
 	if err != nil {
 		panic(err)
 	}

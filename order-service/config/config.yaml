@@ -4,6 +4,8 @@ grpc:
 db:
   host: "localhost"
   port: 27017
+  username: mongo
+  password: mongo
 
 bookService:
   host: localhost
