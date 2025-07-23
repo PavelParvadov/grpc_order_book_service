@@ -6,7 +6,6 @@ require (
 	github.com/PavelParvadov/grpc_order_book_service/book-service v0.0.0-20250715093426-e35223093c4f
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/joho/godotenv v1.5.1
-	go.mongodb.org/mongo-driver v1.17.4
 	go.mongodb.org/mongo-driver/v2 v2.2.2
 	go.uber.org/zap v1.27.0
 	google.golang.org/grpc v1.73.0
@@ -31,3 +30,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	olympos.io/encoding/edn v0.0.0-20201019073823-d3554ca0b0a3 // indirect
 )
+replace github.com/PavelParvadov/grpc_order_book_service/book-service => ../book-service

@@ -1,3 +1,5 @@
+
+
 services:
   postgres:
     image: postgres:latest
@@ -12,12 +14,13 @@ services:
       interval: 10s
       retries: 5
       timeout: 10s
-
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   book-service:
-    build: ./book-service
+    build:
+      context: .
+      dockerfile: book-service/Dockerfile
     command: sh -c "./migrator --migrations-path=./migrations --db-url=${POSTGRES_DB_USERNAME}:${POSTGRES_DB_PASSWORD}@${POSTGRES_DB_HOST}:${POSTGRES_DB_PORT}/${POSTGRES_DB_NAME} && ./book-service"
     depends_on:
       postgres:
@@ -31,10 +34,11 @@ services:
       POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
 
-
   order-service:
     container_name: order-service
-    build: ./order-service
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
     depends_on:
       order-db:
         condition: service_healthy
@@ -51,7 +55,6 @@ services:
       BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
       CONFIG_PATH: ${CONFIG_PATH}
 
-
   order-db:
     container_name: order-db
     restart: on-failure
@@ -66,6 +69,7 @@ services:
       interval: 10s
     volumes:
       - order-db-data:/data/db
+
   api-gateway:
     container_name: api-gateway
     build: ./api-gateway
@@ -74,7 +78,6 @@ services:
       - order-service
     ports:
       - "8080:8080"
-
     environment:
       ORDER_GRPC_PORT: ${ORDER_GRPC_PORT}
       ORDER_GRPC_HOST: ${ORDER_GRPC_HOST}
@@ -86,7 +89,6 @@ services:
       BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
       POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
-
       CONFIG_PATH: ${CONFIG_PATH}
 
 volumes:

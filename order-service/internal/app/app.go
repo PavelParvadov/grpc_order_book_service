@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	bookservice "github.com/PavelParvadov/grpc_order_book_service/order-service/clients/book-service"
 	"github.com/PavelParvadov/grpc_order_book_service/order-service/internal/app/grpc"
 	"github.com/PavelParvadov/grpc_order_book_service/order-service/internal/config"
@@ -19,7 +20,7 @@ func NewApp(cfg *config.Config, log *zap.Logger) *App {
 	storage := mongodb.NewStorage(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	bookClient, err := bookservice.NewBookClient(ctx, "localhost:5555")
+	bookClient, err := bookservice.NewBookClient(ctx, fmt.Sprintf("%s:%s", cfg.BookService.Host, cfg.BookService.Port))
 	if err != nil {
 		panic(err)
 	}

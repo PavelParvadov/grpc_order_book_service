@@ -2,11 +2,11 @@ grpc:
   port: 5554
 
 db:
-  host: "localhost"
+  host: order-db
   port: 27017
   username: mongo
   password: mongo
 
 bookService:
-  host: localhost
+  host: book-service
   port: 5555
