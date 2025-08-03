@@ -140,7 +140,7 @@ Content-Type: application/json
 **Ответ:**
 ```json
 {
-  "order_id": "68766a014bb9d93774596b6c
+  "order_id": "68766a014bb9d93774596b6c"
 }
 ```
 
