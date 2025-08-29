@@ -1,0 +1,13 @@
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\bin\Debug\net8.0\BookServiceCS.Domain.deps.json
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\bin\Debug\net8.0\BookServiceCS.Domain.dll
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\bin\Debug\net8.0\BookServiceCS.Domain.pdb
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.csproj.AssemblyReference.cache
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.AssemblyInfoInputs.cache
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.AssemblyInfo.cs
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.sourcelink.json
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.dll
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\refint\BookServiceCS.Domain.dll
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\BookServiceCS.Domain.pdb
+C:\Users\Pavel\Desktop\GOEDUCATE\grpc_order_book_service\BookServiceCS\BookServiceCS.Domain\obj\Debug\net8.0\ref\BookServiceCS.Domain.dll

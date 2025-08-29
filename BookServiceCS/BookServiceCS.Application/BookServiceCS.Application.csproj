@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookServiceCS.Contracts\BookServiceCS.Contracts.csproj" />
+    <ProjectReference Include="..\BookServiceCS.DataAccess\BookServiceCS.DataAccess.csproj" />
+    <ProjectReference Include="..\BookServiceCS.Domain\BookServiceCS.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
