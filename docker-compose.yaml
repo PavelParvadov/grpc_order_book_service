@@ -17,22 +17,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  book-service:
+  book-service-cs:
     build:
       context: .
-      dockerfile: book-service/Dockerfile
-    command: sh -c "./migrator --migrations-path=./migrations --db-url=${POSTGRES_DB_USERNAME}:${POSTGRES_DB_PASSWORD}@${POSTGRES_DB_HOST}:${POSTGRES_DB_PORT}/${POSTGRES_DB_NAME} && ./book-service"
+      dockerfile: BookServiceCS/BookServiceCS/Dockerfile
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
-      POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
-      POSTGRES_DB_USERNAME: ${POSTGRES_DB_USERNAME}
-      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
-      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
-      POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
-      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+      ASPNETCORE_URLS: http://0.0.0.0:5555
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=${POSTGRES_DB_NAME};Username=${POSTGRES_DB_USERNAME};Password=${POSTGRES_DB_PASSWORD};Include Error Detail=true
 
   order-service:
     container_name: order-service
@@ -42,7 +36,7 @@ services:
     depends_on:
       order-db:
         condition: service_healthy
-      book-service:
+      book-service-cs:
         condition: service_started
     environment:
       ORDER_GRPC_PORT: ${ORDER_GRPC_PORT}
@@ -51,8 +45,8 @@ services:
       MONGO_DB_PORT: ${MONGO_DB_PORT}
       MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
-      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
+      BOOK_SERVICE_HOST: book-service-cs
+      BOOK_SERVICE_PORT: "5555"
       CONFIG_PATH: ${CONFIG_PATH}
 
   order-db:
@@ -74,7 +68,7 @@ services:
     container_name: api-gateway
     build: ./api-gateway
     depends_on:
-      - book-service
+      - book-service-cs
       - order-service
     ports:
       - "8080:8080"
@@ -85,8 +79,8 @@ services:
       MONGO_DB_PORT: ${MONGO_DB_PORT}
       MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-      BOOK_SERVICE_HOST: ${BOOK_SERVICE_HOST}
-      BOOK_SERVICE_PORT: ${BOOK_SERVICE_PORT}
+      BOOK_SERVICE_HOST: book-service-cs
+      BOOK_SERVICE_PORT: "5555"
       POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
       CONFIG_PATH: ${CONFIG_PATH}
