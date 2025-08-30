@@ -40,25 +40,30 @@ cd grpc_order_book_service
 
 2. **Создайте файл .env с переменными окружения:**
 ```bash
-# PostgreSQL
-POSTGRES_DB_NAME=bookdb
-POSTGRES_DB_USERNAME=postgres
-POSTGRES_DB_PASSWORD=password
-POSTGRES_DB_HOST=postgres
-POSTGRES_DB_PORT=5432
+# config
+CONFIG_PATH=./config.yaml
 
-# MongoDB
-MONGO_DB_HOST=order-db
+# Order service
+ORDER_GRPC_PORT=5554
+ORDER_GRPC_HOST=order-service
+
+# MongoDB (order-db)
 MONGO_DB_PORT=27017
-MONGO_DB_USERNAME=admin
-MONGO_DB_PASSWORD=password
+MONGO_DB_HOST=order-db
+MONGO_DB_USERNAME=mongo
+MONGO_DB_PASSWORD=mongo
 
-# Services
+# Book service
 BOOK_SERVICE_HOST=book-service
 BOOK_SERVICE_PORT=5555
-ORDER_GRPC_HOST=order-service
-ORDER_GRPC_PORT=5554
-CONFIG_PATH=/app/config/config.yaml
+
+# Postgres (book-db)
+POSTGRES_DB_PORT=5432
+POSTGRES_DB_HOST=postgres
+POSTGRES_DB_NAME=book_db
+POSTGRES_DB_PASSWORD=postgres
+POSTGRES_DB_USERNAME=postgres
+
 ```
 
 3. **Запустите все сервисы:**
