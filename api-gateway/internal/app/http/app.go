@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/PavelParvadov/grpc_order_book_service/api-gateway/internal/clients/book"
 	"github.com/PavelParvadov/grpc_order_book_service/api-gateway/internal/clients/order"
 	httpDelivery "github.com/PavelParvadov/grpc_order_book_service/api-gateway/internal/delivery/http"
-	"net/http"
 )
 
 type AppHttp struct {

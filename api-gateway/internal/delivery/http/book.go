@@ -2,8 +2,9 @@ package http
 
 import (
 	"encoding/json"
-	"github.com/PavelParvadov/grpc_order_book_service/api-gateway/internal/domain/dto"
 	"net/http"
+
+	"github.com/PavelParvadov/grpc_order_book_service/api-gateway/internal/domain/dto"
 )
 
 func (h *Handler) GetBooks(w http.ResponseWriter, r *http.Request) {

@@ -2,7 +2,7 @@ httpServer:
   port: 8080
 
 bookService:
-  host: "book-service-cs"
+  host: "book-service"
   port: 5555
 
 orderService:
