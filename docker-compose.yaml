@@ -17,16 +17,20 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  book-service-cs:
+  book-service:
+    container_name: book-service
     build:
-      context: .
-      dockerfile: BookServiceCS/BookServiceCS/Dockerfile
+      context: ./BookServiceCS
+      dockerfile: BookServiceCS/Dockerfile
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      ASPNETCORE_URLS: http://0.0.0.0:5555
-      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=${POSTGRES_DB_NAME};Username=${POSTGRES_DB_USERNAME};Password=${POSTGRES_DB_PASSWORD};Include Error Detail=true
+      - ASPNETCORE_URLS=http://0.0.0.0:5555
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB_NAME};Username=${POSTGRES_DB_USERNAME};Password=${POSTGRES_DB_PASSWORD};Include Error Detail=true
+    ports:
+      - "5555:5555"
 
   order-service:
     container_name: order-service
@@ -36,7 +40,7 @@ services:
     depends_on:
       order-db:
         condition: service_healthy
-      book-service-cs:
+      book-service:
         condition: service_started
     environment:
       ORDER_GRPC_PORT: ${ORDER_GRPC_PORT}
@@ -45,7 +49,7 @@ services:
       MONGO_DB_PORT: ${MONGO_DB_PORT}
       MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-      BOOK_SERVICE_HOST: book-service-cs
+      BOOK_SERVICE_HOST: book-service
       BOOK_SERVICE_PORT: "5555"
       CONFIG_PATH: ${CONFIG_PATH}
 
@@ -68,7 +72,7 @@ services:
     container_name: api-gateway
     build: ./api-gateway
     depends_on:
-      - book-service-cs
+      - book-service
       - order-service
     ports:
       - "8080:8080"
@@ -79,7 +83,7 @@ services:
       MONGO_DB_PORT: ${MONGO_DB_PORT}
       MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-      BOOK_SERVICE_HOST: book-service-cs
+      BOOK_SERVICE_HOST: book-service
       BOOK_SERVICE_PORT: "5555"
       POSTGRES_DB_HOST: ${POSTGRES_DB_HOST}
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
